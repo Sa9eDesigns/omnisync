@@ -1,6 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { View, Text } from 'react-native';
-import { Button } from '@boilerplate/ui';
+import { View, Text, Button } from '@boilerplate/ui-simple';
 
 interface Props {
   children: ReactNode;

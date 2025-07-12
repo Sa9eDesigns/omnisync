@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@boilerplate/shared": "workspace:*",
-    "@boilerplate/ui": "workspace:*",
+    "@boilerplate/ui-simple": "workspace:*",
     "react-hook-form": "catalog:",
     "@hookform/resolvers": "catalog:",
     "zod": "catalog:",

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Input } from '@boilerplate/ui';
+import { Button, Input } from '@boilerplate/ui-simple';
 import { PlatformView, PlatformText, isWeb } from './platform/PlatformView';
 import { CrossPlatformFormField } from './platform/CrossPlatformFormField';
 import { registerSchema, type RegisterFormData } from '../schemas';

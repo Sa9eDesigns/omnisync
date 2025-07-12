@@ -266,7 +266,7 @@ export const useTokens = (): DesignTokens => {
 };
 
 // Hook for responsive values
-export const useResponsiveValue = <T>(values: Partial<Record<keyof DesignTokens['breakpoints'], T>>): T | undefined => {
+export function useResponsiveValue<T>(values: Partial<Record<keyof DesignTokens['breakpoints'], T>>): T | undefined {
   const { resolvedTokens } = useTheme();
   const [currentBreakpoint, setCurrentBreakpoint] = React.useState<keyof DesignTokens['breakpoints'] | null>(null);
 
@@ -304,4 +304,4 @@ export const useResponsiveValue = <T>(values: Partial<Record<keyof DesignTokens[
   }
 
   return undefined;
-};
+}

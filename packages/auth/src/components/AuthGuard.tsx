@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { PlatformView, PlatformText } from './platform/PlatformView';
-import { Button } from '@boilerplate/ui';
+import { Button } from '@boilerplate/ui-simple';
 import { useAuth } from '../hooks/use-auth';
 
 export interface AuthGuardProps {

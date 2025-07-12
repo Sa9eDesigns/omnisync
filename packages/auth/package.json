@@ -19,7 +19,7 @@
   "dependencies": {
     "@boilerplate/shared": "workspace:*",
     "@boilerplate/database": "workspace:*",
-    "@boilerplate/ui": "workspace:*",
+    "@boilerplate/ui-simple": "workspace:*",
     "@boilerplate/store": "workspace:*",
     "bcryptjs": "catalog:",
     "jsonwebtoken": "catalog:",
