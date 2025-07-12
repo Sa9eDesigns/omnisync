@@ -25,10 +25,8 @@ catalog:
   vite: ^5.0.0
   "@vitejs/plugin-react": ^4.2.0
   
-  # WebRTC and audio
-  simple-peer: ^9.11.1
-  socket.io: ^4.7.4
-  socket.io-client: ^4.7.4
+  # Networking (optional)
+  axios: ^1.6.0
   
   # Electron
   electron: ^28.0.0

@@ -1,7 +1,7 @@
 {
-  "name": "@omnisync/eslint-config",
+  "name": "@boilerplate/eslint-config",
   "version": "1.0.0",
-  "description": "Shared ESLint configurations for OmniSync",
+  "description": "Shared ESLint configurations for cross-platform boilerplate",
   "private": true,
   "main": "index.js",
   "files": [

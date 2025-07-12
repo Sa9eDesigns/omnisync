@@ -1,69 +1,95 @@
-// Basic React Native app for WebRTC audio capture
+// Cross-Platform Mobile App Template
 
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Platform } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const [isConnected, setIsConnected] = useState(false);
-  const [isStreaming, setIsStreaming] = useState(false);
+  const [userCount, setUserCount] = useState(0);
+  const [appInfo, setAppInfo] = useState({
+    platform: Platform.OS,
+    version: '1.0.0',
+  });
+
+  useEffect(() => {
+    // Simulate app initialization
+    setTimeout(() => {
+      setUserCount(Math.floor(Math.random() * 100) + 1);
+    }, 1000);
+  }, []);
 
   const handleConnect = () => {
-    // Simulate connection to signaling server
+    // Simulate API connection
     setTimeout(() => {
       setIsConnected(true);
-      Alert.alert('Success', 'Connected to signaling server');
+      Alert.alert('Success', 'Connected to backend API');
     }, 1000);
   };
 
-  const handleStartStreaming = () => {
+  const handleDisconnect = () => {
+    setIsConnected(false);
+    Alert.alert('Info', 'Disconnected from backend API');
+  };
+
+  const handleAction = () => {
     if (!isConnected) {
-      Alert.alert('Error', 'Please connect to signaling server first');
+      Alert.alert('Error', 'Please connect to the backend first');
       return;
     }
-    
-    setIsStreaming(!isStreaming);
-    Alert.alert(
-      'Info', 
-      isStreaming ? 'Stopped audio streaming' : 'Started audio streaming'
-    );
+
+    Alert.alert('Success', 'Action performed successfully!');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>WebRTC Audio Mobile</Text>
-      
+      <StatusBar style="auto" />
+
+      <Text style={styles.title}>Cross-Platform Mobile</Text>
+      <Text style={styles.subtitle}>React Native + Expo Template</Text>
+
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoText}>Platform: {appInfo.platform}</Text>
+        <Text style={styles.infoText}>Version: {appInfo.version}</Text>
+        <Text style={styles.infoText}>Users Online: {userCount}</Text>
+      </View>
+
       <View style={styles.statusContainer}>
-        <Text style={styles.statusLabel}>Status:</Text>
+        <Text style={styles.statusLabel}>API Status:</Text>
         <Text style={[
-          styles.statusText, 
+          styles.statusText,
           isConnected ? styles.connected : styles.disconnected
         ]}>
           {isConnected ? 'Connected' : 'Disconnected'}
         </Text>
       </View>
 
-      <TouchableOpacity 
-        style={[styles.button, isConnected && styles.buttonDisabled]} 
-        onPress={handleConnect}
-        disabled={isConnected}
-      >
-        <Text style={styles.buttonText}>
-          {isConnected ? 'Connected' : 'Connect to Server'}
-        </Text>
-      </TouchableOpacity>
+      {!isConnected ? (
+        <TouchableOpacity
+          style={[styles.button, styles.buttonPrimary]}
+          onPress={handleConnect}
+        >
+          <Text style={styles.buttonText}>Connect to Backend</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={[styles.button, styles.buttonSecondary]}
+          onPress={handleDisconnect}
+        >
+          <Text style={styles.buttonText}>Disconnect</Text>
+        </TouchableOpacity>
+      )}
 
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[
-          styles.button, 
-          isStreaming ? styles.buttonStop : styles.buttonStart,
+          styles.button,
+          styles.buttonSuccess,
           !isConnected && styles.buttonDisabled
-        ]} 
-        onPress={handleStartStreaming}
+        ]}
+        onPress={handleAction}
         disabled={!isConnected}
       >
-        <Text style={styles.buttonText}>
-          {isStreaming ? 'Stop Streaming' : 'Start Audio Stream'}
-        </Text>
+        <Text style={styles.buttonText}>Perform Action</Text>
       </TouchableOpacity>
     </View>
   );
@@ -74,14 +100,42 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f8f9fa',
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#212529',
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#6c757d',
     marginBottom: 30,
-    color: '#333',
+    textAlign: 'center',
+  },
+  infoContainer: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+    borderRadius: 12,
+    marginBottom: 20,
+    width: '100%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  infoText: {
+    fontSize: 16,
+    color: '#495057',
+    marginBottom: 8,
+    textAlign: 'center',
   },
   statusContainer: {
     flexDirection: 'row',
@@ -91,7 +145,7 @@ const styles = StyleSheet.create({
   statusLabel: {
     fontSize: 16,
     marginRight: 10,
-    color: '#666',
+    color: '#6c757d',
   },
   statusText: {
     fontSize: 16,
@@ -104,26 +158,36 @@ const styles = StyleSheet.create({
     color: '#dc3545',
   },
   button: {
-    backgroundColor: '#007bff',
     paddingHorizontal: 30,
     paddingVertical: 15,
-    borderRadius: 8,
-    marginVertical: 10,
+    borderRadius: 12,
+    marginVertical: 8,
     minWidth: 200,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 3,
   },
-  buttonStart: {
+  buttonPrimary: {
+    backgroundColor: '#007bff',
+  },
+  buttonSecondary: {
+    backgroundColor: '#6c757d',
+  },
+  buttonSuccess: {
     backgroundColor: '#28a745',
   },
-  buttonStop: {
-    backgroundColor: '#dc3545',
-  },
   buttonDisabled: {
-    backgroundColor: '#6c757d',
+    backgroundColor: '#e9ecef',
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '600',
     textAlign: 'center',
   },
 });

@@ -1,7 +1,7 @@
 {
-  "name": "@omnisync/mobile",
+  "name": "@boilerplate/mobile",
   "version": "1.0.0",
-  "description": "OmniSync Mobile Application - React Native/Expo WebRTC audio transmitter",
+  "description": "Cross-platform Mobile Application - React Native/Expo template",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -21,21 +21,17 @@
     "clean": "rm -rf .expo dist build"
   },
   "dependencies": {
-    "@omnisync/shared": "workspace:*",
-    "@omnisync/webrtc-core": "workspace:*",
+    "@boilerplate/shared": "workspace:*",
+    "@boilerplate/config": "workspace:*",
     "expo": "catalog:",
-    "expo-av": "~13.10.4",
     "expo-status-bar": "~1.11.1",
     "react": "catalog:",
-    "react-native": "catalog:",
-    "react-native-webrtc": "^118.0.1",
-    "socket.io-client": "catalog:",
-    "simple-peer": "catalog:"
+    "react-native": "catalog:"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
-    "@omnisync/eslint-config": "workspace:*",
-    "@omnisync/tsconfig": "workspace:*",
+    "@boilerplate/eslint-config": "workspace:*",
+    "@boilerplate/tsconfig": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-native": "^0.72.8",
     "jest": "^29.7.0",

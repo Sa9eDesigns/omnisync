@@ -1,11 +1,11 @@
 {
-  "extends": "@omnisync/tsconfig/node.json",
+  "extends": "@boilerplate/tsconfig/node.json",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "rootDir": "src",
     "paths": {
-      "@omnisync/shared": ["../../packages/shared/src"]
+      "@boilerplate/shared": ["../../packages/shared/src"],
+      "@boilerplate/config": ["../../packages/config/src"]
     }
   },
   "include": [
