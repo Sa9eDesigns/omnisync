@@ -15,7 +15,11 @@ model User {
   email     String   @unique
   name      String?
   avatar    String?
-  role      Role     @default(USER)
+  password  String?
+  role      String   @default("USER")
+  emailVerified Boolean @default(false)
+  lastLoginAt DateTime?
+  passwordChangedAt DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -80,8 +84,5 @@ model Post {
   @@map("posts")
 }
 
-enum Role {
-  USER
-  ADMIN
-  MODERATOR
-}
+// Note: SQLite doesn't support enums, so we use String with constraints
+// Valid roles: "USER", "ADMIN", "MODERATOR"

@@ -7,10 +7,10 @@ const globalForPrisma = globalThis as unknown as {
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+if (process.env['NODE_ENV'] !== 'production') globalForPrisma.prisma = prisma;
 
 // Export types
-export type { User, Post, Account, Session, Role } from '@prisma/client';
+export type { User, Post, Account, Session } from '@prisma/client';
 
 // Export utilities
 export * from './queries';

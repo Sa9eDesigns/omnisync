@@ -39,7 +39,12 @@ export const useCreatePost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: CreatePostInput) => postMutations.create(data),
+    mutationFn: (data: CreatePostInput) => postMutations.create({
+      title: data.title,
+      content: data.content || null,
+      published: data.published || false,
+      author: { connect: { id: data.authorId } }
+    }),
     onSuccess: () => {
       // Invalidate and refetch posts
       queryClient.invalidateQueries({ queryKey: queryKeys.posts() });

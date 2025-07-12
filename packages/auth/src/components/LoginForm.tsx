@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@boilerplate/ui';
-import { Form, FormField } from '@boilerplate/forms';
+import { PlatformView, PlatformText, isWeb } from './platform/PlatformView';
+import { CrossPlatformFormField } from './platform/CrossPlatformFormField';
 import { loginSchema, type LoginFormData } from '../schemas';
 import { useLogin } from '../hooks/use-login';
 
@@ -43,29 +43,36 @@ export function LoginForm({
     }
   };
 
+  // Create platform-specific form wrapper
+  const FormWrapper = isWeb ? 'form' : PlatformView;
+  const formProps = isWeb
+    ? { onSubmit: form.handleSubmit(onSubmit), className }
+    : { className };
+
   return (
-    <View className={className}>
-      <Form form={form} onSubmit={onSubmit}>
-        <View className="space-y-4">
-          {/* Header */}
-          <View className="text-center mb-6">
-            <Text className="text-2xl font-bold text-foreground mb-2">
-              Welcome Back
-            </Text>
-            <Text className="text-muted-foreground">
-              Sign in to your account to continue
-            </Text>
-          </View>
+    <PlatformView className={className}>
+      <FormProvider {...form}>
+        <FormWrapper {...formProps}>
+          <PlatformView className="space-y-4">
+            {/* Header */}
+            <PlatformView className="text-center mb-6">
+              <PlatformText className="text-2xl font-bold text-foreground mb-2">
+                Welcome Back
+              </PlatformText>
+              <PlatformText className="text-muted-foreground">
+                Sign in to your account to continue
+              </PlatformText>
+            </PlatformView>
 
           {/* Error Message */}
           {error && (
-            <View className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
-              <Text className="text-sm text-destructive">{error}</Text>
-            </View>
+            <PlatformView className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+              <PlatformText className="text-sm text-destructive">{error}</PlatformText>
+            </PlatformView>
           )}
 
           {/* Email Field */}
-          <FormField
+          <CrossPlatformFormField
             name="email"
             label="Email"
             required
@@ -82,10 +89,10 @@ export function LoginForm({
                 error={error}
               />
             )}
-          </FormField>
+          </CrossPlatformFormField>
 
           {/* Password Field */}
-          <FormField
+          <CrossPlatformFormField
             name="password"
             label="Password"
             required
@@ -101,36 +108,36 @@ export function LoginForm({
                 error={error}
               />
             )}
-          </FormField>
+          </CrossPlatformFormField>
 
           {/* Remember Me & Forgot Password */}
-          <View className="flex-row justify-between items-center">
+          <PlatformView className="flex-row justify-between items-center">
             {showRememberMe && (
-              <FormField name="rememberMe">
+              <CrossPlatformFormField name="rememberMe">
                 {({ value, onChange }) => (
-                  <View className="flex-row items-center">
+                  <PlatformView className="flex-row items-center">
                     <Button
                       variant="ghost"
                       size="sm"
                       onPress={() => onChange(!value)}
                       className="p-0 h-auto"
                     >
-                      <View className="flex-row items-center">
-                        <View className={`w-4 h-4 border rounded mr-2 ${
+                      <PlatformView className="flex-row items-center">
+                        <PlatformView className={`w-4 h-4 border rounded mr-2 ${
                           value ? 'bg-primary border-primary' : 'border-input'
                         }`}>
                           {value && (
-                            <Text className="text-primary-foreground text-xs text-center">
+                            <PlatformText className="text-primary-foreground text-xs text-center">
                               ✓
-                            </Text>
+                            </PlatformText>
                           )}
-                        </View>
-                        <Text className="text-sm text-foreground">Remember me</Text>
-                      </View>
+                        </PlatformView>
+                        <PlatformText className="text-sm text-foreground">Remember me</PlatformText>
+                      </PlatformView>
                     </Button>
-                  </View>
+                  </PlatformView>
                 )}
-              </FormField>
+              </CrossPlatformFormField>
             )}
 
             <Button
@@ -139,9 +146,9 @@ export function LoginForm({
               onPress={onForgotPassword}
               className="p-0 h-auto"
             >
-              <Text className="text-sm text-primary">Forgot password?</Text>
+              <PlatformText className="text-sm text-primary">Forgot password?</PlatformText>
             </Button>
-          </View>
+          </PlatformView>
 
           {/* Submit Button */}
           <Button
@@ -155,39 +162,40 @@ export function LoginForm({
 
           {/* Social Login */}
           {showSocialLogin && (
-            <View className="space-y-3">
-              <View className="flex-row items-center">
-                <View className="flex-1 h-px bg-border" />
-                <Text className="px-3 text-sm text-muted-foreground">Or continue with</Text>
-                <View className="flex-1 h-px bg-border" />
-              </View>
+            <PlatformView className="space-y-3">
+              <PlatformView className="flex-row items-center">
+                <PlatformView className="flex-1 h-px bg-border" />
+                <PlatformText className="px-3 text-sm text-muted-foreground">Or continue with</PlatformText>
+                <PlatformView className="flex-1 h-px bg-border" />
+              </PlatformView>
 
-              <View className="flex-row space-x-3">
+              <PlatformView className="flex-row space-x-3">
                 <Button variant="outline" className="flex-1">
-                  <Text>Google</Text>
+                  <PlatformText>Google</PlatformText>
                 </Button>
                 <Button variant="outline" className="flex-1">
-                  <Text>GitHub</Text>
+                  <PlatformText>GitHub</PlatformText>
                 </Button>
-              </View>
-            </View>
+              </PlatformView>
+            </PlatformView>
           )}
 
           {/* Register Link */}
-          <View className="text-center">
-            <Text className="text-sm text-muted-foreground">
+          <PlatformView className="text-center">
+            <PlatformText className="text-sm text-muted-foreground">
               Don't have an account?{' '}
-              <Text
+              <PlatformText
                 className="text-primary font-medium"
                 onPress={onRegister}
               >
                 Sign up
-              </Text>
-            </Text>
-          </View>
-        </View>
-      </Form>
-    </View>
+              </PlatformText>
+            </PlatformText>
+          </PlatformView>
+          </PlatformView>
+        </FormWrapper>
+      </FormProvider>
+    </PlatformView>
   );
 }
 

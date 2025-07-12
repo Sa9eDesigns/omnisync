@@ -84,8 +84,8 @@ export const postQueries = {
     return prisma.post.findMany({
       where: {
         OR: [
-          { title: { contains: query, mode: 'insensitive' } },
-          { content: { contains: query, mode: 'insensitive' } },
+          { title: { contains: query } },
+          { content: { contains: query } },
         ],
         published: true,
       },

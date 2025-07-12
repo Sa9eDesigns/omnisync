@@ -19,8 +19,7 @@
   "dependencies": {
     "@boilerplate/shared": "workspace:*",
     "@boilerplate/ui": "workspace:*",
-    "react": "catalog:",
-    "react-native": "catalog:"
+    "react": "catalog:"
   },
   "devDependencies": {
     "@boilerplate/eslint-config": "workspace:*",

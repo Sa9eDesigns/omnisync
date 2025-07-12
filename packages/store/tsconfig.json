@@ -1,13 +1,11 @@
 {
-  "extends": "@boilerplate/tsconfig/react.json",
+  "extends": "@boilerplate/tsconfig/base.json",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
     "rootDir": "./src",
-    "paths": {
-      "@boilerplate/shared": ["../shared/src"],
-      "@boilerplate/database": ["../database/src"]
-    }
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx"
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]

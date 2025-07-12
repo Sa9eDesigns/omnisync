@@ -1,34 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@boilerplate/ui';
 import { PlatformView, PlatformText, isWeb } from './platform/PlatformView';
 import { CrossPlatformFormField } from './platform/CrossPlatformFormField';
-import { forgotPasswordSchema, type ForgotPasswordFormData } from '../schemas';
-import { useForgotPassword } from '../hooks/use-forgot-password';
+import { resetPasswordSchema, type ResetPasswordFormData } from '../schemas';
+import { useResetPassword } from '../hooks/use-reset-password';
 
-export interface ForgotPasswordFormProps {
+export interface ResetPasswordFormProps {
+  token: string;
   onSuccess?: () => void;
   onBack?: () => void;
   className?: string;
 }
 
-export function ForgotPasswordForm({
+export function ResetPasswordForm({
+  token,
   onSuccess,
   onBack,
   className,
-}: ForgotPasswordFormProps) {
-  const { forgotPassword, isLoading, error, success } = useForgotPassword();
+}: ResetPasswordFormProps) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { resetPassword, isLoading, error, success } = useResetPassword();
 
-  const form = useForm<ForgotPasswordFormData>({
-    resolver: zodResolver(forgotPasswordSchema),
+  const form = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      email: '',
+      token,
+      password: '',
+      confirmPassword: '',
     },
   });
 
-  const onSubmit = async (data: ForgotPasswordFormData) => {
-    const result = await forgotPassword(data);
+  const onSubmit = async (data: ResetPasswordFormData) => {
+    const result = await resetPassword(data);
     if (result.success) {
       onSuccess?.();
     }
@@ -38,16 +44,15 @@ export function ForgotPasswordForm({
     return (
       <PlatformView className={className}>
         <PlatformView className="text-center space-y-4">
-          <PlatformText className="text-6xl mb-4">📧</PlatformText>
+          <PlatformText className="text-6xl mb-4">✅</PlatformText>
           <PlatformText className="text-2xl font-bold text-foreground mb-2">
-            Check Your Email
+            Password Reset Successful
           </PlatformText>
           <PlatformText className="text-muted-foreground mb-6">
-            We've sent a password reset link to your email address.
-            Please check your inbox and follow the instructions.
+            Your password has been successfully reset. You can now sign in with your new password.
           </PlatformText>
-          <Button onPress={onBack} variant="outline" className="w-full">
-            Back to Sign In
+          <Button onPress={onBack} className="w-full">
+            Sign In
           </Button>
         </PlatformView>
       </PlatformView>
@@ -56,7 +61,7 @@ export function ForgotPasswordForm({
 
   // Create platform-specific form wrapper
   const FormWrapper = isWeb ? 'form' : PlatformView;
-  const formProps = isWeb
+  const formProps = isWeb 
     ? { onSubmit: form.handleSubmit(onSubmit), className }
     : { className };
 
@@ -68,10 +73,10 @@ export function ForgotPasswordForm({
             {/* Header */}
             <PlatformView className="text-center mb-6">
               <PlatformText className="text-2xl font-bold text-foreground mb-2">
-                Forgot Password?
+                Reset Password
               </PlatformText>
               <PlatformText className="text-muted-foreground">
-                Enter your email address and we'll send you a link to reset your password.
+                Enter your new password below.
               </PlatformText>
             </PlatformView>
 
@@ -82,10 +87,10 @@ export function ForgotPasswordForm({
               </PlatformView>
             )}
 
-            {/* Email Field */}
+            {/* Password Field */}
             <CrossPlatformFormField
-              name="email"
-              label="Email"
+              name="password"
+              label="New Password"
               required
             >
               {({ value, onChange, onBlur, error }) => (
@@ -93,10 +98,28 @@ export function ForgotPasswordForm({
                   value={value}
                   onChangeText={onChange}
                   onBlur={onBlur}
-                  placeholder="Enter your email"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  autoComplete="email"
+                  placeholder="Enter your new password"
+                  secureTextEntry={!showPassword}
+                  autoComplete="new-password"
+                  error={error}
+                />
+              )}
+            </CrossPlatformFormField>
+
+            {/* Confirm Password Field */}
+            <CrossPlatformFormField
+              name="confirmPassword"
+              label="Confirm New Password"
+              required
+            >
+              {({ value, onChange, onBlur, error }) => (
+                <Input
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  placeholder="Confirm your new password"
+                  secureTextEntry={!showConfirmPassword}
+                  autoComplete="new-password"
                   error={error}
                 />
               )}
@@ -109,7 +132,7 @@ export function ForgotPasswordForm({
               disabled={isLoading}
               className="w-full"
             >
-              {isLoading ? 'Sending...' : 'Send Reset Link'}
+              {isLoading ? 'Resetting...' : 'Reset Password'}
             </Button>
 
             {/* Back Button */}
@@ -127,4 +150,4 @@ export function ForgotPasswordForm({
   );
 }
 
-export default ForgotPasswordForm;
+export default ResetPasswordForm;

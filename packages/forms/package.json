@@ -22,8 +22,7 @@
     "react-hook-form": "catalog:",
     "@hookform/resolvers": "catalog:",
     "zod": "catalog:",
-    "react": "catalog:",
-    "react-native": "catalog:"
+    "react": "catalog:"
   },
   "devDependencies": {
     "@boilerplate/eslint-config": "workspace:*",

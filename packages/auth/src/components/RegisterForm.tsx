@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@boilerplate/ui';
-import { Form, FormField } from '@boilerplate/forms';
+import { PlatformView, PlatformText, isWeb } from './platform/PlatformView';
+import { CrossPlatformFormField } from './platform/CrossPlatformFormField';
 import { registerSchema, type RegisterFormData } from '../schemas';
 import { useRegister } from '../hooks/use-register';
 
@@ -42,29 +42,36 @@ export function RegisterForm({
     }
   };
 
+  // Create platform-specific form wrapper
+  const FormWrapper = isWeb ? 'form' : PlatformView;
+  const formProps = isWeb
+    ? { onSubmit: form.handleSubmit(onSubmit), className }
+    : { className };
+
   return (
-    <View className={className}>
-      <Form form={form} onSubmit={onSubmit}>
-        <View className="space-y-4">
-          {/* Header */}
-          <View className="text-center mb-6">
-            <Text className="text-2xl font-bold text-foreground mb-2">
-              Create Account
-            </Text>
-            <Text className="text-muted-foreground">
-              Join us and start your journey today
-            </Text>
-          </View>
+    <PlatformView className={className}>
+      <FormProvider {...form}>
+        <FormWrapper {...formProps}>
+          <PlatformView className="space-y-4">
+            {/* Header */}
+            <PlatformView className="text-center mb-6">
+              <PlatformText className="text-2xl font-bold text-foreground mb-2">
+                Create Account
+              </PlatformText>
+              <PlatformText className="text-muted-foreground">
+                Join us and start your journey today
+              </PlatformText>
+            </PlatformView>
 
           {/* Error Message */}
           {error && (
-            <View className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
-              <Text className="text-sm text-destructive">{error}</Text>
-            </View>
+            <PlatformView className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+              <PlatformText className="text-sm text-destructive">{error}</PlatformText>
+            </PlatformView>
           )}
 
           {/* Name Field */}
-          <FormField
+          <CrossPlatformFormField
             name="name"
             label="Full Name"
             required
@@ -80,10 +87,10 @@ export function RegisterForm({
                 error={error}
               />
             )}
-          </FormField>
+          </CrossPlatformFormField>
 
           {/* Email Field */}
-          <FormField
+          <CrossPlatformFormField
             name="email"
             label="Email"
             required
@@ -100,10 +107,10 @@ export function RegisterForm({
                 error={error}
               />
             )}
-          </FormField>
+          </CrossPlatformFormField>
 
           {/* Password Field */}
-          <FormField
+          <CrossPlatformFormField
             name="password"
             label="Password"
             required
@@ -119,10 +126,10 @@ export function RegisterForm({
                 error={error}
               />
             )}
-          </FormField>
+          </CrossPlatformFormField>
 
           {/* Confirm Password Field */}
-          <FormField
+          <CrossPlatformFormField
             name="confirmPassword"
             label="Confirm Password"
             required
@@ -138,44 +145,44 @@ export function RegisterForm({
                 error={error}
               />
             )}
-          </FormField>
+          </CrossPlatformFormField>
 
           {/* Terms and Conditions */}
-          <FormField name="acceptTerms" required>
+          <CrossPlatformFormField name="acceptTerms" required>
             {({ value, onChange, error }) => (
-              <View>
+              <PlatformView>
                 <Button
                   variant="ghost"
                   size="sm"
                   onPress={() => onChange(!value)}
                   className="p-0 h-auto justify-start"
                 >
-                  <View className="flex-row items-start">
-                    <View className={`w-4 h-4 border rounded mr-3 mt-0.5 ${
+                  <PlatformView className="flex-row items-start">
+                    <PlatformView className={`w-4 h-4 border rounded mr-3 mt-0.5 ${
                       value ? 'bg-primary border-primary' : 'border-input'
                     }`}>
                       {value && (
-                        <Text className="text-primary-foreground text-xs text-center">
+                        <PlatformText className="text-primary-foreground text-xs text-center">
                           ✓
-                        </Text>
+                        </PlatformText>
                       )}
-                    </View>
-                    <View className="flex-1">
-                      <Text className="text-sm text-foreground text-left">
+                    </PlatformView>
+                    <PlatformView className="flex-1">
+                      <PlatformText className="text-sm text-foreground text-left">
                         I agree to the{' '}
-                        <Text className="text-primary">Terms of Service</Text>
+                        <PlatformText className="text-primary">Terms of Service</PlatformText>
                         {' '}and{' '}
-                        <Text className="text-primary">Privacy Policy</Text>
-                      </Text>
-                    </View>
-                  </View>
+                        <PlatformText className="text-primary">Privacy Policy</PlatformText>
+                      </PlatformText>
+                    </PlatformView>
+                  </PlatformView>
                 </Button>
                 {error && (
-                  <Text className="text-sm text-destructive mt-1">{error}</Text>
+                  <PlatformText className="text-sm text-destructive mt-1">{error}</PlatformText>
                 )}
-              </View>
+              </PlatformView>
             )}
-          </FormField>
+          </CrossPlatformFormField>
 
           {/* Submit Button */}
           <Button
@@ -189,39 +196,40 @@ export function RegisterForm({
 
           {/* Social Login */}
           {showSocialLogin && (
-            <View className="space-y-3">
-              <View className="flex-row items-center">
-                <View className="flex-1 h-px bg-border" />
-                <Text className="px-3 text-sm text-muted-foreground">Or continue with</Text>
-                <View className="flex-1 h-px bg-border" />
-              </View>
+            <PlatformView className="space-y-3">
+              <PlatformView className="flex-row items-center">
+                <PlatformView className="flex-1 h-px bg-border" />
+                <PlatformText className="px-3 text-sm text-muted-foreground">Or continue with</PlatformText>
+                <PlatformView className="flex-1 h-px bg-border" />
+              </PlatformView>
 
-              <View className="flex-row space-x-3">
+              <PlatformView className="flex-row space-x-3">
                 <Button variant="outline" className="flex-1">
-                  <Text>Google</Text>
+                  <PlatformText>Google</PlatformText>
                 </Button>
                 <Button variant="outline" className="flex-1">
-                  <Text>GitHub</Text>
+                  <PlatformText>GitHub</PlatformText>
                 </Button>
-              </View>
-            </View>
+              </PlatformView>
+            </PlatformView>
           )}
 
           {/* Login Link */}
-          <View className="text-center">
-            <Text className="text-sm text-muted-foreground">
+          <PlatformView className="text-center">
+            <PlatformText className="text-sm text-muted-foreground">
               Already have an account?{' '}
-              <Text
+              <PlatformText
                 className="text-primary font-medium"
                 onPress={onLogin}
               >
                 Sign in
-              </Text>
-            </Text>
-          </View>
-        </View>
-      </Form>
-    </View>
+              </PlatformText>
+            </PlatformText>
+          </PlatformView>
+          </PlatformView>
+        </FormWrapper>
+      </FormProvider>
+    </PlatformView>
   );
 }
 

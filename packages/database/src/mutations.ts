@@ -1,6 +1,5 @@
 import { prisma } from './index';
 import type { User, Post, Prisma } from '@prisma/client';
-import { createSuccessResponse, createErrorResponse } from '@boilerplate/shared';
 
 // User mutations
 export const userMutations = {

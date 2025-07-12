@@ -19,10 +19,14 @@
   "dependencies": {
     "@boilerplate/shared": "workspace:*",
     "@boilerplate/database": "workspace:*",
+    "@boilerplate/ui": "workspace:*",
+    "@boilerplate/store": "workspace:*",
     "bcryptjs": "catalog:",
     "jsonwebtoken": "catalog:",
     "zod": "catalog:",
-    "react": "catalog:"
+    "react": "catalog:",
+    "react-hook-form": "catalog:",
+    "@hookform/resolvers": "catalog:"
   },
   "devDependencies": {
     "@boilerplate/eslint-config": "workspace:*",
