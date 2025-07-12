@@ -26,7 +26,11 @@
   "dependencies": {
     "@boilerplate/shared": "workspace:*",
     "@boilerplate/ui": "workspace:*",
-    "@boilerplate/config": "workspace:*"
+    "@boilerplate/config": "workspace:*",
+    "@boilerplate/store": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-router-dom": "^6.20.1"
   },
   "devDependencies": {
     "@boilerplate/eslint-config": "workspace:*",

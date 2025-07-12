@@ -2,6 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import { postsRouter } from './routes/posts';
+import { usersRouter } from './routes/users';
+import { authRouter } from './routes/auth';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,25 +21,29 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Cross-Platform Boilerplate Backend API',
     version: '1.0.0',
-    status: 'running'
+    status: 'running',
+    endpoints: {
+      health: '/health',
+      auth: '/api/auth',
+      users: '/api/users',
+      posts: '/api/posts',
+    }
   });
 });
 
 app.get('/health', (req, res) => {
   res.json({
     status: 'healthy',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    memory: process.memoryUsage(),
   });
 });
 
-// API routes placeholder
-app.use('/api', (req, res) => {
-  res.json({
-    message: 'API endpoints go here',
-    path: req.path,
-    method: req.method
-  });
-});
+// API routes
+app.use('/api/auth', authRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/posts', postsRouter);
 
 // Error handling
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -58,4 +65,5 @@ app.use('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Backend server running on port ${PORT}`);
   console.log(`📍 Health check: http://localhost:${PORT}/health`);
+  console.log(`📚 API documentation: http://localhost:${PORT}/`);
 });
