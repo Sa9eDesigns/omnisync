@@ -1,18 +1,12 @@
 {
-  "extends": "@omnisync/tsconfig/node.json",
+  "extends": "@boilerplate/tsconfig/node.json",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
     "rootDir": "src",
-    "moduleResolution": "bundler",
-    "module": "ESNext",
-    "target": "ES2022",
-    "lib": ["ES2022", "DOM"],
-    "strict": false,
-    "exactOptionalPropertyTypes": false,
-    "noPropertyAccessFromIndexSignature": false,
+    "skipLibCheck": true,
     "paths": {
-      "@omnisync/shared": ["../shared/src"]
+      "@boilerplate/shared": ["../shared/dist"]
     }
   },
   "include": [
@@ -21,8 +15,5 @@
   "exclude": [
     "node_modules",
     "dist"
-  ],
-  "references": [
-    { "path": "../shared" }
   ]
 }

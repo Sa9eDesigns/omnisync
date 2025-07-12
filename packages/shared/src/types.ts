@@ -1,45 +1,66 @@
-// Core types for OmniSync
+// Core types for cross-platform applications
 
-export interface AudioStreamConfig {
-  sampleRate: number;
-  channels: number;
-  bitrate: number;
-  echoCancellation?: boolean;
-  noiseSuppression?: boolean;
-  autoGainControl?: boolean;
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export interface SignalingMessage {
-  type: "offer" | "answer" | "ice-candidate" | "join" | "leave" | "error";
-  payload: any;
-  from?: string;
-  to?: string;
-  timestamp?: number;
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
 }
 
-export interface PeerConnectionConfig {
-  iceServers: RTCIceServer[];
-  iceCandidatePoolSize?: number;
+export interface PaginatedResponse<T = any> extends ApiResponse<T[]> {
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export interface AppConfig {
+  apiUrl: string;
+  environment: 'development' | 'staging' | 'production';
+  features: Record<string, boolean>;
+  version: string;
+}
+
+export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
+
+export interface LogEntry {
+  level: LogLevel;
+  message: string;
+  timestamp: number;
+  context?: Record<string, any>;
+}
+
+export interface Theme {
+  name: string;
+  colors: {
+    primary: string;
+    secondary: string;
+    background: string;
+    surface: string;
+    text: string;
+    textSecondary: string;
+    border: string;
+    error: string;
+    warning: string;
+    success: string;
+  };
 }
 
 export interface DeviceInfo {
   id: string;
   name: string;
-  type: "mobile" | "desktop";
+  type: 'mobile' | 'desktop' | 'web';
   platform: string;
   version: string;
-}
-
-export interface ConnectionState {
-  status: "disconnected" | "connecting" | "connected" | "failed" | "closed";
-  latency?: number;
-  quality?: "poor" | "fair" | "good" | "excellent";
-}
-
-export interface AudioMetrics {
-  inputLevel: number;
-  outputLevel: number;
-  packetsLost: number;
-  jitter: number;
-  roundTripTime: number;
 }

@@ -1,7 +1,7 @@
 {
-  "name": "@omnisync/ui",
+  "name": "@boilerplate/ui",
   "version": "1.0.0",
-  "description": "Shared UI components for OmniSync",
+  "description": "Shared UI components for cross-platform applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": true,
@@ -18,7 +18,7 @@
     "generate:component": "node scripts/generate-component.js"
   },
   "dependencies": {
-    "@omnisync/shared": "workspace:*",
+    "@boilerplate/shared": "workspace:*",
     "@base-ui-components/react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
@@ -48,8 +48,8 @@
     }
   },
   "devDependencies": {
-    "@omnisync/eslint-config": "workspace:*",
-    "@omnisync/tsconfig": "workspace:*",
+    "@boilerplate/eslint-config": "workspace:*",
+    "@boilerplate/tsconfig": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/node": "catalog:",

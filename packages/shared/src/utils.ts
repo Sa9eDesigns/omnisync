@@ -1,48 +1,42 @@
-import type { SignalingMessage, DeviceInfo } from "./types";
+import type { DeviceInfo, ApiResponse, PaginatedResponse } from "./types";
 
 /**
- * Creates a signaling message with timestamp
+ * Generates a unique ID
  */
-export function createSignalingMessage(
-  type: SignalingMessage["type"],
-  payload: any,
-  from?: string,
-  to?: string
-): SignalingMessage {
-  return {
-    type,
-    payload,
-    from: from || "",
-    to: to || "",
-    timestamp: Date.now(),
-  };
+export function generateId(): string {
+  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
 /**
- * Generates a unique device ID
+ * Generates a UUID v4
  */
-export function generateDeviceId(): string {
-  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+export function generateUUID(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }
 
 /**
  * Detects the current platform
  */
 export function detectPlatform(): string {
-  if (typeof navigator !== "undefined") {
-    const userAgent = navigator.userAgent.toLowerCase();
+  // Browser environment
+  if (typeof globalThis !== "undefined" && 'navigator' in globalThis) {
+    const userAgent = (globalThis as any).navigator.userAgent.toLowerCase();
     if (userAgent.includes("android")) return "android";
     if (userAgent.includes("iphone") || userAgent.includes("ipad")) return "ios";
     if (userAgent.includes("mac")) return "macos";
     if (userAgent.includes("win")) return "windows";
     if (userAgent.includes("linux")) return "linux";
   }
-  
+
   // Node.js environment
-  if (typeof process !== "undefined") {
+  if (typeof process !== "undefined" && process.platform) {
     return process.platform;
   }
-  
+
   return "unknown";
 }
 
@@ -51,11 +45,11 @@ export function detectPlatform(): string {
  */
 export function createDeviceInfo(
   name: string,
-  type: "mobile" | "desktop",
+  type: "mobile" | "desktop" | "web",
   version: string = "1.0.0"
 ): DeviceInfo {
   return {
-    id: generateDeviceId(),
+    id: generateId(),
     name,
     type,
     platform: detectPlatform(),
@@ -64,48 +58,66 @@ export function createDeviceInfo(
 }
 
 /**
- * Calculates audio quality based on metrics
+ * Formats a date to a readable string
  */
-export function calculateAudioQuality(
-  packetsLost: number,
-  jitter: number,
-  roundTripTime: number
-): "poor" | "fair" | "good" | "excellent" {
-  if (packetsLost > 5 || jitter > 50 || roundTripTime > 200) {
-    return "poor";
-  }
-  if (packetsLost > 2 || jitter > 30 || roundTripTime > 100) {
-    return "fair";
-  }
-  if (packetsLost > 0 || jitter > 15 || roundTripTime > 50) {
-    return "good";
-  }
-  return "excellent";
+export function formatDate(date: Date | string): string {
+  const d = typeof date === 'string' ? new Date(date) : date;
+  return d.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 }
 
 /**
- * Formats latency for display
+ * Formats a date with time
  */
-export function formatLatency(latency: number): string {
-  if (latency < 1000) {
-    return `${Math.round(latency)}ms`;
-  }
-  return `${(latency / 1000).toFixed(1)}s`;
+export function formatDateTime(date: Date | string): string {
+  const d = typeof date === 'string' ? new Date(date) : date;
+  return d.toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 }
 
 /**
- * Validates audio stream configuration
+ * Capitalizes the first letter of a string
  */
-export function validateAudioConfig(config: any): boolean {
-  return (
-    typeof config === "object" &&
-    typeof config.sampleRate === "number" &&
-    typeof config.channels === "number" &&
-    typeof config.bitrate === "number" &&
-    config.sampleRate > 0 &&
-    config.channels > 0 &&
-    config.bitrate > 0
-  );
+export function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+/**
+ * Truncates text to a specified length
+ */
+export function truncate(text: string, length: number): string {
+  if (text.length <= length) return text;
+  return text.slice(0, length) + '...';
+}
+
+/**
+ * Creates a successful API response
+ */
+export function createSuccessResponse<T>(data: T, message?: string): ApiResponse<T> {
+  return {
+    success: true,
+    data,
+    message,
+  };
+}
+
+/**
+ * Creates an error API response
+ */
+export function createErrorResponse(error: string, message?: string): ApiResponse {
+  return {
+    success: false,
+    error,
+    message,
+  };
 }
 
 /**

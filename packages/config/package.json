@@ -1,7 +1,7 @@
 {
-  "name": "@omnisync/config",
+  "name": "@boilerplate/config",
   "version": "1.0.0",
-  "description": "Shared configuration and constants for OmniSync",
+  "description": "Shared configuration and constants for cross-platform applications",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,11 +17,11 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@omnisync/shared": "workspace:*"
+    "@boilerplate/shared": "workspace:*"
   },
   "devDependencies": {
-    "@omnisync/eslint-config": "workspace:*",
-    "@omnisync/tsconfig": "workspace:*",
+    "@boilerplate/eslint-config": "workspace:*",
+    "@boilerplate/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

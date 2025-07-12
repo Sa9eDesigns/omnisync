@@ -186,7 +186,7 @@ export const useTokens = (): DesignTokens => {
 };
 
 // Hook for responsive values (React Native version)
-export const useResponsiveValue = <T>(values: Partial<Record<keyof DesignTokens['breakpoints'], T>>): T | undefined => {
+export function useResponsiveValue<T>(values: Partial<Record<keyof DesignTokens['breakpoints'], T>>): T | undefined {
   const { resolvedTokens } = useTheme();
   const [screenWidth, setScreenWidth] = React.useState<number>(0);
 
@@ -232,7 +232,7 @@ export const useResponsiveValue = <T>(values: Partial<Record<keyof DesignTokens[
   }
 
   return undefined;
-};
+}
 
 // Hook to get current screen dimensions
 export const useScreenDimensions = () => {

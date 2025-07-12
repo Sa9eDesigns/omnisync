@@ -1,65 +1,85 @@
 import { z } from "zod";
 
-// Audio configuration schema
-export const AudioStreamConfigSchema = z.object({
-  sampleRate: z.number().positive(),
-  channels: z.number().positive().int(),
-  bitrate: z.number().positive(),
-  echoCancellation: z.boolean().optional(),
-  noiseSuppression: z.boolean().optional(),
-  autoGainControl: z.boolean().optional(),
+// User schema
+export const UserSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1),
+  email: z.string().email(),
+  avatar: z.string().url().optional(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 });
 
-// Signaling message schema
-export const SignalingMessageSchema = z.object({
-  type: z.enum(["offer", "answer", "ice-candidate", "join", "leave", "error"]),
-  payload: z.any(),
-  from: z.string().optional(),
-  to: z.string().optional(),
-  timestamp: z.number().optional(),
+// API response schema
+export const ApiResponseSchema = z.object({
+  success: z.boolean(),
+  data: z.any().optional(),
+  error: z.string().optional(),
+  message: z.string().optional(),
+});
+
+// Pagination schema
+export const PaginationSchema = z.object({
+  page: z.number().positive(),
+  limit: z.number().positive().max(100),
+  total: z.number().nonnegative(),
+  totalPages: z.number().nonnegative(),
+});
+
+// Paginated response schema
+export const PaginatedResponseSchema = ApiResponseSchema.extend({
+  data: z.array(z.any()).optional(),
+  pagination: PaginationSchema,
+});
+
+// App config schema
+export const AppConfigSchema = z.object({
+  apiUrl: z.string().url(),
+  environment: z.enum(['development', 'staging', 'production']),
+  features: z.record(z.boolean()),
+  version: z.string(),
 });
 
 // Device info schema
 export const DeviceInfoSchema = z.object({
   id: z.string(),
   name: z.string(),
-  type: z.enum(["mobile", "desktop"]),
+  type: z.enum(["mobile", "desktop", "web"]),
   platform: z.string(),
   version: z.string(),
 });
 
-// Connection state schema
-export const ConnectionStateSchema = z.object({
-  status: z.enum(["disconnected", "connecting", "connected", "failed", "closed"]),
-  latency: z.number().optional(),
-  quality: z.enum(["poor", "fair", "good", "excellent"]).optional(),
+// Theme schema
+export const ThemeSchema = z.object({
+  name: z.string(),
+  colors: z.object({
+    primary: z.string(),
+    secondary: z.string(),
+    background: z.string(),
+    surface: z.string(),
+    text: z.string(),
+    textSecondary: z.string(),
+    border: z.string(),
+    error: z.string(),
+    warning: z.string(),
+    success: z.string(),
+  }),
 });
 
-// Audio metrics schema
-export const AudioMetricsSchema = z.object({
-  inputLevel: z.number().min(0).max(1),
-  outputLevel: z.number().min(0).max(1),
-  packetsLost: z.number().nonnegative(),
-  jitter: z.number().nonnegative(),
-  roundTripTime: z.number().nonnegative(),
-});
-
-// Peer connection config schema
-export const PeerConnectionConfigSchema = z.object({
-  iceServers: z.array(
-    z.object({
-      urls: z.union([z.string(), z.array(z.string())]),
-      username: z.string().optional(),
-      credential: z.string().optional(),
-    })
-  ),
-  iceCandidatePoolSize: z.number().optional(),
+// Log entry schema
+export const LogEntrySchema = z.object({
+  level: z.enum(['debug', 'info', 'warn', 'error']),
+  message: z.string(),
+  timestamp: z.number(),
+  context: z.record(z.any()).optional(),
 });
 
 // Export type inference helpers
-export type AudioStreamConfigType = z.infer<typeof AudioStreamConfigSchema>;
-export type SignalingMessageType = z.infer<typeof SignalingMessageSchema>;
+export type UserType = z.infer<typeof UserSchema>;
+export type ApiResponseType = z.infer<typeof ApiResponseSchema>;
+export type PaginationType = z.infer<typeof PaginationSchema>;
+export type PaginatedResponseType = z.infer<typeof PaginatedResponseSchema>;
+export type AppConfigType = z.infer<typeof AppConfigSchema>;
 export type DeviceInfoType = z.infer<typeof DeviceInfoSchema>;
-export type ConnectionStateType = z.infer<typeof ConnectionStateSchema>;
-export type AudioMetricsType = z.infer<typeof AudioMetricsSchema>;
-export type PeerConnectionConfigType = z.infer<typeof PeerConnectionConfigSchema>;
+export type ThemeType = z.infer<typeof ThemeSchema>;
+export type LogEntryType = z.infer<typeof LogEntrySchema>;

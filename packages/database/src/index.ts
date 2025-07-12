@@ -1,0 +1,18 @@
+import { PrismaClient } from '@prisma/client';
+
+// Global instance to prevent multiple connections in development
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+export const prisma = globalForPrisma.prisma ?? new PrismaClient();
+
+if (process.env['NODE_ENV'] !== 'production') globalForPrisma.prisma = prisma;
+
+// Export types
+export type { User, Post, Account, Session } from '@prisma/client';
+
+// Export utilities
+export * from './queries';
+export * from './mutations';
+export * from './types';
