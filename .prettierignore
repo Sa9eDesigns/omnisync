@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+.turbo/
+.next/
+.expo/
+coverage/
+*.log
+*.lock
+pnpm-lock.yaml
+.changeset/
+.DS_Store

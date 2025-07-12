@@ -1,0 +1,71 @@
+{
+  "name": "@omnisync/desktop",
+  "version": "1.0.0",
+  "description": "OmniSync Desktop Application - Electron-based WebRTC audio receiver",
+  "main": "dist/main.js",
+  "author": {
+    "name": "SA9E Designs",
+    "email": "76609660+Sa9eDesigns@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/Sa9eDesigns/omnisync",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "package": "tsc && electron-builder",
+    "dev": "concurrently \"tsc --watch\" \"electron dist/main.js\"",
+    "start": "electron dist/main.js",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "clean": "rm -rf dist build",
+    "package:full": "electron-builder",
+    "make": "electron-forge make"
+  },
+  "dependencies": {
+    "@omnisync/shared": "workspace:*",
+    "@omnisync/webrtc-core": "workspace:*",
+    "@omnisync/ui": "workspace:*",
+    "socket.io-client": "catalog:",
+    "simple-peer": "catalog:"
+  },
+  "devDependencies": {
+    "@omnisync/eslint-config": "workspace:*",
+    "@omnisync/tsconfig": "workspace:*",
+    "electron": "catalog:",
+    "@electron-forge/cli": "catalog:",
+    "@electron-forge/maker-deb": "^7.2.0",
+    "@electron-forge/maker-rpm": "^7.2.0",
+    "@electron-forge/maker-squirrel": "^7.2.0",
+    "@electron-forge/maker-zip": "^7.2.0",
+    "@types/node": "catalog:",
+    "concurrently": "^8.2.2",
+    "electron-builder": "^24.9.1",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "build": {
+    "appId": "com.omnisync.desktop",
+    "productName": "OmniSync Desktop",
+    "directories": {
+      "output": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
+  }
+}

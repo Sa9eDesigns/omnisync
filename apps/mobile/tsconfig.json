@@ -1,0 +1,21 @@
+{
+  "extends": "@omnisync/tsconfig/react-native.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@omnisync/shared": ["../../packages/shared/src"],
+      "@omnisync/webrtc-core": ["../../packages/webrtc-core/src"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "App.js",
+    "index.js"
+  ],
+  "exclude": [
+    "node_modules",
+    ".expo",
+    "dist",
+    "build"
+  ]
+}

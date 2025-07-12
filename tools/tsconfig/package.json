@@ -1,0 +1,9 @@
+{
+  "name": "@omnisync/tsconfig",
+  "version": "1.0.0",
+  "description": "Shared TypeScript configurations for OmniSync",
+  "private": true,
+  "files": [
+    "*.json"
+  ]
+}
