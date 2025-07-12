@@ -1,8 +1,10 @@
 import React from "react";
 import { cn } from "../utils/cn";
 import { Loader2 } from "lucide-react";
+import { createStyledComponent } from "../system/createStyledComponent";
+import { StyledProps } from "../system/styled";
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, StyledProps {
   variant?: "primary" | "secondary" | "outline" | "ghost" | "destructive";
   size?: "sm" | "md" | "lg";
   loading?: boolean;

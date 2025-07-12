@@ -16,6 +16,15 @@ export * from "./hooks/useWebRTC";
 // Utilities
 export * from "./utils/cn";
 
+// Universal Cross-Platform UI System (NEW)
+// Inspired by Tamagui - works across Web, React Native, and Electron
+export * from "./universal";
+
+// Legacy Components (for backward compatibility)
+export { Button as LegacyButton } from "./components/Button";
+export { InputComponent as LegacyInput } from "./components/Input";
+export { Card as LegacyCard } from "./components/Card";
+
 // Note: Import "./styles/base.css" in your app to use the base styles
 
 // Temporarily disabled components due to Base UI API compatibility issues:

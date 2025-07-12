@@ -1,18 +1,29 @@
 # @omnisync/ui
 
-Comprehensive, mobile-responsive UI components for OmniSync built with [Base UI](https://base-ui.com/) and inspired by Shadcn/ui design patterns.
+Comprehensive, cross-platform UI components for OmniSync with **Universal UI System** inspired by Tamagui.
 
-## Features
+## 🌟 New: Universal UI System
+
+A production-grade, cross-platform UI system that works seamlessly across **Web**, **React Native/Expo**, and **Electron** applications with a single API.
+
+### Universal Features
+
+- 🌐 **Cross-Platform** - Single API works on Web, React Native, and Electron
+- 🎨 **Design Tokens** - Consistent design system with universal tokens
+- 📱 **Responsive** - Adaptive layouts with breakpoint-based styling
+- 🎭 **Theming** - Light/dark mode with automatic system detection
+- ⚡ **Performance** - Platform-optimized rendering and animations
+- ♿ **Accessibility** - WCAG 2.1 AA compliant components
+- 🔧 **TypeScript** - Full type safety with intelligent IntelliSense
+- 🎪 **Variants** - Powerful variant system for component customization
+
+## Legacy Features
 
 - 🎨 **Unstyled Foundation** - Built with Base UI for maximum customization
 - 📱 **Mobile-First Design** - Responsive components that work beautifully on all devices
-- ♿ **Accessibility First** - WCAG 2.1 AA compliant with proper ARIA attributes
 - 🎯 **Audio-Focused** - Specialized components for audio streaming applications
-- 🎨 **Modern Theming** - HSL-based color system with dark mode support
-- 🔧 **TypeScript** - Full type safety and comprehensive IntelliSense
 - 🚀 **Performance** - Optimized for mobile devices and low-latency interactions
 - 📐 **Flexible Layout** - Comprehensive layout system with responsive utilities
-- 📱 **Expo/React Native Compatible** - Dual implementation for web and native platforms
 
 ## Installation
 
@@ -22,9 +33,57 @@ This package is part of the OmniSync monorepo and uses workspace dependencies:
 pnpm install
 ```
 
-### Platform-Specific Usage
+### Universal UI System (Recommended)
 
-#### Web Applications (Default)
+```tsx
+// Single import works across all platforms
+import {
+  ThemeProvider,
+  Button,
+  Card,
+  Input,
+  Stack,
+  Heading,
+} from "@omnisync/ui/universal";
+
+function App() {
+  return (
+    <ThemeProvider defaultMode="system">
+      <Stack spacing={4} p={6}>
+        <Heading size="xl">Welcome to OmniSync</Heading>
+
+        <Card>
+          <Card.Header>
+            <Card.Title>Universal Components</Card.Title>
+            <Card.Description>
+              Components that work everywhere
+            </Card.Description>
+          </Card.Header>
+
+          <Card.Content>
+            <Stack spacing={3}>
+              <Input
+                label="Email"
+                placeholder="Enter your email"
+                type="email"
+                fullWidth
+              />
+
+              <Button variant="primary" fullWidth>
+                Get Started
+              </Button>
+            </Stack>
+          </Card.Content>
+        </Card>
+      </Stack>
+    </ThemeProvider>
+  );
+}
+```
+
+### Platform-Specific Usage (Legacy)
+
+#### Web Applications
 ```tsx
 // Import web-optimized components
 import { Button, Card, Layout } from "@omnisync/ui";
@@ -37,10 +96,11 @@ import "@omnisync/ui/src/styles/base.css";
 import { Button, Card, Layout } from "@omnisync/ui/native";
 
 // Required peer dependencies for React Native
-// npm install react-native-gesture-handler react-native-safe-area-context
+// pnpm add react-native-gesture-handler react-native-safe-area-context
 ```
 
 > 📱 **Expo Compatibility**: See [EXPO_COMPATIBILITY.md](./EXPO_COMPATIBILITY.md) for complete React Native/Expo setup guide.
+> 🌐 **Universal System**: See [UNIVERSAL_UI_SYSTEM.md](./UNIVERSAL_UI_SYSTEM.md) for comprehensive universal system documentation.
 
 ## Usage
 

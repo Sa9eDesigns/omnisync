@@ -1,12 +1,29 @@
 // Shared types and utilities for WebRTC audio streaming
 
-// Re-export everything from modular files
-export * from "./types";
-export * from "./constants";
-export * from "./utils";
-export * from "./schemas";
+export interface AudioStreamConfig {
+  sampleRate: number;
+  channels: number;
+  bitrate: number;
+}
 
-// Legacy exports for backward compatibility
-export type { AudioStreamConfig, SignalingMessage } from "./types";
-export { DEFAULT_AUDIO_CONFIG } from "./constants";
-export { createSignalingMessage } from "./utils";
+export interface SignalingMessage {
+  type: 'offer' | 'answer' | 'ice-candidate' | 'join' | 'leave';
+  payload: any;
+  from?: string;
+  to?: string;
+}
+
+export const DEFAULT_AUDIO_CONFIG: AudioStreamConfig = {
+  sampleRate: 48000,
+  channels: 2,
+  bitrate: 128000
+};
+
+export function createSignalingMessage(
+  type: SignalingMessage['type'], 
+  payload: any, 
+  from?: string, 
+  to?: string
+): SignalingMessage {
+  return { type, payload, from, to };
+}
