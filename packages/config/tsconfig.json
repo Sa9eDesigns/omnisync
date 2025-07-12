@@ -4,8 +4,9 @@
     "baseUrl": ".",
     "outDir": "dist",
     "rootDir": "src",
+    "skipLibCheck": true,
     "paths": {
-      "@boilerplate/shared": ["../shared/src"]
+      "@boilerplate/shared": ["../shared/dist"]
     }
   },
   "include": [
