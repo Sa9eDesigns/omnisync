@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WebRTC Audio Desktop</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .container { max-width: 800px; margin: 0 auto; }
+    button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+    .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+    .connected { background-color: #d4edda; color: #155724; }
+    .disconnected { background-color: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>WebRTC Audio Desktop Receiver</h1>
+    <div id="status" class="status disconnected">Disconnected</div>
+    <button id="connectBtn">Connect to Signaling Server</button>
+    <button id="startBtn" disabled>Start Receiving Audio</button>
+    <audio id="remoteAudio" autoplay></audio>
+  </div>
+  
+  <script>
+    console.log('WebRTC Audio Desktop App loaded');
+    
+    const statusEl = document.getElementById('status');
+    const connectBtn = document.getElementById('connectBtn');
+    const startBtn = document.getElementById('startBtn');
+    
+    connectBtn.addEventListener('click', () => {
+      statusEl.textContent = 'Connecting...';
+      statusEl.className = 'status';
+      
+      // Simulate connection
+      setTimeout(() => {
+        statusEl.textContent = 'Connected to Signaling Server';
+        statusEl.className = 'status connected';
+        startBtn.disabled = false;
+      }, 1000);
+    });
+    
+    startBtn.addEventListener('click', () => {
+      console.log('Starting audio reception...');
+      statusEl.textContent = 'Ready to receive audio';
+    });
+  </script>
+</body>
+</html>

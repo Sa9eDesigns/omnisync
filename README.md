@@ -1,4 +1,81 @@
-# Architecture and Overview
+# OmniSync - Real-time P2P Audio Streaming
+
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactnative.dev/)
+[![Electron](https://img.shields.io/badge/Electron-191970?style=for-the-badge&logo=Electron&logoColor=white)](https://www.electronjs.org/)
+[![WebRTC](https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=webrtc&logoColor=white)](https://webrtc.org/)
+
+A modern, real-time peer-to-peer audio streaming system built with WebRTC, designed for low-latency audio transmission between mobile and desktop devices.
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd omnisync
+
+# Run setup script
+./scripts/setup.sh
+
+# Start development
+pnpm dev
+```
+
+## 📁 Monorepo Structure
+
+This project uses a modern monorepo architecture with PNPM workspaces and Turborepo:
+
+```
+omnisync/
+├── apps/
+│   ├── desktop/            # Electron desktop app
+│   ├── mobile/             # React Native/Expo mobile app
+│   └── signaling-server/   # WebSocket signaling server
+├── packages/
+│   ├── shared/             # Common types & utilities
+│   ├── webrtc-core/        # WebRTC functionality
+│   ├── ui/                 # Shared UI components
+│   └── config/             # Configuration management
+└── tools/                  # Development tools & configs
+```
+
+## 🛠️ Technology Stack
+
+- **Frontend**: React, React Native, Electron
+- **Backend**: Node.js, Socket.IO
+- **Audio**: WebRTC, Web Audio API
+- **Build**: Turborepo, TypeScript, Vite
+- **Package Management**: PNPM Workspaces
+- **Code Quality**: ESLint, Prettier, Changesets
+
+## 📱 Applications
+
+### Desktop App (Electron)
+- Receives audio streams from mobile devices
+- Routes audio to virtual microphone devices
+- Cross-platform support (Windows, macOS, Linux)
+
+### Mobile App (React Native/Expo)
+- Captures microphone audio
+- Streams to desktop via WebRTC
+- iOS and Android support
+
+### Signaling Server (Node.js)
+- WebSocket-based signaling for WebRTC
+- Device discovery and pairing
+- Connection management
+
+## 🎯 Key Features
+
+- **Low Latency**: <100ms end-to-end audio delay
+- **High Quality**: 48kHz/16-bit audio with noise suppression
+- **Cross-Platform**: Works on Windows, macOS, Linux, iOS, Android
+- **P2P Architecture**: Direct device-to-device streaming
+- **Virtual Audio**: System-wide microphone integration
+- **Real-time Metrics**: Connection quality monitoring
+
+## Architecture and Overview
 
 The system adopts a **peer-to-peer (P2P) WebRTC** model for real-time audio, with a fallback to server-assisted relaying when direct connections fail. Each mobile/desktop pair creates a direct RTCPeerConnection and exchanges audio streams, minimizing latency by avoiding middlemen. A central signaling server (e.g. a WebSocket/Socket.IO service) is used only to exchange SDP offers/answers and ICE candidates (via STUN/TURN) during connection setup.  In practice, the mobile app captures microphone audio and encodes it (Opus) for WebRTC transmission; the desktop app’s WebRTC peer decodes and plays it back in real time.  If NAT traversal or direct P2P fails, a TURN relay server can fallback to relay the audio.  This basic flow is shown below:
 

@@ -1,0 +1,21 @@
+{
+  "extends": "@omnisync/tsconfig/node.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": "src",
+    "paths": {
+      "@omnisync/shared": ["../../packages/shared/src"],
+      "@omnisync/webrtc-core": ["../../packages/webrtc-core/src"],
+      "@omnisync/ui": ["../../packages/ui/src"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build"
+  ]
+}

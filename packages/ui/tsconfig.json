@@ -1,0 +1,38 @@
+{
+  "extends": "@omnisync/tsconfig/react.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": "src",
+    "types": ["node"],
+    "strict": false,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitAny": false,
+    "paths": {
+      "@omnisync/shared": ["../shared/src"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/native/**/*",
+    "src/components/AudioControlPanel.tsx",
+    "src/components/AudioControls.tsx",
+    "src/components/DeviceSelector.tsx",
+    "src/components/Dialog.tsx",
+    "src/components/Sheet.tsx",
+    "src/components/Sidebar.tsx",
+    "src/components/Tabs.tsx",
+    "src/components/Toast.tsx",
+    "src/components/Table.tsx",
+    "src/components/MetricsDisplay.tsx",
+    "src/components/ConnectionStatus.tsx",
+    "src/components/ComponentShowcase.tsx"
+  ],
+  "references": [
+    { "path": "../shared" }
+  ]
+}
