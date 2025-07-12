@@ -1,22 +1,15 @@
 {
-  "extends": "@omnisync/tsconfig/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@omnisync/shared": ["./packages/shared/src"],
-      "@omnisync/webrtc-core": ["./packages/webrtc-core/src"],
-      "@omnisync/ui": ["./packages/ui/src"],
-      "@omnisync/config": ["./packages/config/src"]
-    }
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./src"
   },
-  "include": [],
-  "references": [
-    { "path": "./apps/desktop" },
-    { "path": "./apps/mobile" },
-    { "path": "./apps/signaling-server" },
-    { "path": "./packages/shared" },
-    { "path": "./packages/webrtc-core" },
-    { "path": "./packages/ui" },
-    { "path": "./packages/config" }
-  ]
+  "exclude": ["node_modules", "dist"]
 }

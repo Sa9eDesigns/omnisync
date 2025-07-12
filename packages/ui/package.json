@@ -13,7 +13,9 @@
     "type-check": "tsc --noEmit",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "generate": "node scripts/generate-component.js",
+    "generate:component": "node scripts/generate-component.js"
   },
   "dependencies": {
     "@omnisync/shared": "workspace:*",
@@ -59,6 +61,16 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.js"
+    },
+    "./universal": {
+      "types": "./dist/universal/index.d.ts",
+      "import": "./dist/universal/index.js",
+      "require": "./dist/universal/index.js"
+    },
+    "./native": {
+      "types": "./dist/native/index.d.ts",
+      "import": "./dist/native/index.js",
+      "require": "./dist/native/index.js"
     }
   },
   "files": [
