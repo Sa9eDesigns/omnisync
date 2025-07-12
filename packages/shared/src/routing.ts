@@ -43,35 +43,53 @@ export interface NavigationService {
 
 // Platform-specific navigation implementations
 export class WebNavigationService implements NavigationService {
+  private getWindow(): Window | null {
+    return typeof window !== 'undefined' ? window : null;
+  }
+
   navigate(route: string, params?: RouteParams, options?: NavigationOptions): void {
-    const url = this.buildUrl(route, params);
-    if (options?.replace) {
-      window.history.replaceState(options.state, '', url);
-    } else {
-      window.history.pushState(options?.state, '', url);
+    const win = this.getWindow();
+    if (win) {
+      const url = this.buildUrl(route, params);
+      if (options?.replace) {
+        win.history.replaceState(options.state, '', url);
+      } else {
+        win.history.pushState(options?.state, '', url);
+      }
     }
   }
 
   goBack(): void {
-    window.history.back();
+    const win = this.getWindow();
+    if (win) {
+      win.history.back();
+    }
   }
 
   replace(route: string, params?: RouteParams): void {
-    const url = this.buildUrl(route, params);
-    window.history.replaceState(null, '', url);
+    const win = this.getWindow();
+    if (win) {
+      const url = this.buildUrl(route, params);
+      win.history.replaceState(null, '', url);
+    }
   }
 
   reset(route: string, params?: RouteParams): void {
-    const url = this.buildUrl(route, params);
-    window.history.replaceState(null, '', url);
+    const win = this.getWindow();
+    if (win) {
+      const url = this.buildUrl(route, params);
+      win.history.replaceState(null, '', url);
+    }
   }
 
   canGoBack(): boolean {
-    return window.history.length > 1;
+    const win = this.getWindow();
+    return win ? win.history.length > 1 : false;
   }
 
   getCurrentRoute(): string {
-    return window.location.pathname;
+    const win = this.getWindow();
+    return win ? win.location.pathname : '/';
   }
 
   private buildUrl(route: string, params?: RouteParams): string {
@@ -142,7 +160,7 @@ export function getPlatform(): 'web' | 'mobile' | 'desktop' {
       return 'desktop';
     }
     // Check if running in React Native WebView or mobile browser
-    if (navigator.userAgent.includes('Mobile') || navigator.userAgent.includes('Android')) {
+    if (typeof navigator !== 'undefined' && (navigator.userAgent.includes('Mobile') || navigator.userAgent.includes('Android'))) {
       return 'mobile';
     }
     return 'web';

@@ -33,6 +33,7 @@ catalog:
   "@types/node": ^20.11.0
   "@types/react": ^18.2.0
   "@types/react-dom": ^18.2.0
+  "@types/react-native": ^0.73.0
   
   # Build tools
   vite: ^5.0.0
@@ -50,6 +51,7 @@ catalog:
   "next-auth": ^4.24.5
   jsonwebtoken: ^9.0.2
   bcryptjs: ^2.4.3
+  "@types/bcryptjs": ^2.4.6
 
   # Validation & Utilities
   zod: ^3.22.4
