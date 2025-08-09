@@ -1,10 +1,10 @@
 {
-  "extends": "@omnisync/tsconfig/react-native.json",
+  "extends": "@boilerplate/tsconfig/react-native.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@omnisync/shared": ["../../packages/shared/src"],
-      "@omnisync/webrtc-core": ["../../packages/webrtc-core/src"]
+      "@boilerplate/shared": ["../../packages/shared/src"],
+      "@boilerplate/config": ["../../packages/config/src"]
     }
   },
   "include": [

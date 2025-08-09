@@ -1,29 +1,41 @@
-// Shared types and utilities for WebRTC audio streaming
+// Shared types and utilities for cross-platform applications
 
-export interface AudioStreamConfig {
-  sampleRate: number;
-  channels: number;
-  bitrate: number;
-}
+export * from './constants';
+export * from './schemas';
+export * from './routing';
+export * from './errors';
 
-export interface SignalingMessage {
-  type: 'offer' | 'answer' | 'ice-candidate' | 'join' | 'leave';
-  payload: any;
-  from?: string;
-  to?: string;
-}
+// Re-export specific items to avoid conflicts
+export type { Theme } from './types';
+export { formatDate, debounce, throttle } from './utils';
 
-export const DEFAULT_AUDIO_CONFIG: AudioStreamConfig = {
-  sampleRate: 48000,
-  channels: 2,
-  bitrate: 128000
-};
+// Re-export API utilities with explicit names to avoid conflicts
+export {
+  createSuccessResponse,
+  createErrorResponse,
+  createPaginatedResponse,
+  HTTP_STATUS,
+  isApiError,
+  validateApiResponse,
+} from './api';
 
-export function createSignalingMessage(
-  type: SignalingMessage['type'], 
-  payload: any, 
-  from?: string, 
-  to?: string
-): SignalingMessage {
-  return { type, payload, from, to };
-}
+// Re-export error utilities with explicit names
+export {
+  AppError,
+  ValidationError,
+  AuthenticationError,
+  AuthorizationError,
+  NotFoundError,
+  ConflictError,
+  NetworkError,
+  TimeoutError,
+  RateLimitError,
+  ErrorCode,
+  isAppError,
+  getErrorCode,
+  getErrorDetails,
+  logError,
+  handleError,
+  withErrorHandling,
+  withRetry,
+} from './errors';

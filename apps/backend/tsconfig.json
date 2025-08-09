@@ -1,0 +1,18 @@
+{
+  "extends": "@boilerplate/tsconfig/node.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "paths": {
+      "@boilerplate/shared": ["../../packages/shared/src"],
+      "@boilerplate/config": ["../../packages/config/src"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

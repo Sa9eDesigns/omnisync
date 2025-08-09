@@ -1,7 +1,7 @@
 {
-  "name": "omnisync",
+  "name": "cross-platform-boilerplate",
   "version": "1.0.0",
-  "description": "Real-time P2P audio streaming system with WebRTC",
+  "description": "Modern cross-platform monorepo boilerplate with React, React Native, and Electron",
   "private": true,
   "packageManager": "pnpm@8.15.0",
   "engines": {
@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
-    "@omnisync/eslint-config": "workspace:*",
-    "@omnisync/tsconfig": "workspace:*",
+    "@boilerplate/eslint-config": "workspace:*",
+    "@boilerplate/tsconfig": "workspace:*",
     "@types/node": "^20.11.0",
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",

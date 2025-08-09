@@ -1,69 +1,78 @@
-import type { AudioStreamConfig, PeerConnectionConfig } from "./types";
+import type { AppConfig, Theme } from "./types";
 
-// Default audio configuration
-export const DEFAULT_AUDIO_CONFIG: AudioStreamConfig = {
-  sampleRate: 48000,
-  channels: 2,
-  bitrate: 128000,
-  echoCancellation: true,
-  noiseSuppression: true,
-  autoGainControl: true,
+// Application constants
+export const APP_NAME = "Cross-Platform Boilerplate";
+export const APP_VERSION = "1.0.0";
+
+// API configuration
+export const API_CONFIG = {
+  DEFAULT_TIMEOUT: 10000,
+  RETRY_ATTEMPTS: 3,
+  RETRY_DELAY: 1000,
 };
 
-// High quality audio configuration
-export const HIGH_QUALITY_AUDIO_CONFIG: AudioStreamConfig = {
-  sampleRate: 48000,
-  channels: 2,
-  bitrate: 320000,
-  echoCancellation: false,
-  noiseSuppression: false,
-  autoGainControl: false,
+// Pagination defaults
+export const PAGINATION = {
+  DEFAULT_PAGE: 1,
+  DEFAULT_LIMIT: 20,
+  MAX_LIMIT: 100,
 };
 
-// Low latency audio configuration
-export const LOW_LATENCY_AUDIO_CONFIG: AudioStreamConfig = {
-  sampleRate: 44100,
-  channels: 1,
-  bitrate: 64000,
-  echoCancellation: true,
-  noiseSuppression: true,
-  autoGainControl: true,
+// Default theme
+export const DEFAULT_THEME: Theme = {
+  name: 'default',
+  colors: {
+    primary: '#007AFF',
+    secondary: '#5856D6',
+    background: '#FFFFFF',
+    surface: '#F2F2F7',
+    text: '#000000',
+    textSecondary: '#8E8E93',
+    border: '#C6C6C8',
+    error: '#FF3B30',
+    warning: '#FF9500',
+    success: '#34C759',
+  },
 };
 
-// Default STUN/TURN servers
-export const DEFAULT_ICE_SERVERS: RTCIceServer[] = [
-  { urls: "stun:stun.l.google.com:19302" },
-  { urls: "stun:stun1.l.google.com:19302" },
-  { urls: "stun:stun2.l.google.com:19302" },
-];
-
-// Default peer connection configuration
-export const DEFAULT_PEER_CONFIG: PeerConnectionConfig = {
-  iceServers: DEFAULT_ICE_SERVERS,
-  iceCandidatePoolSize: 10,
+// Dark theme
+export const DARK_THEME: Theme = {
+  name: 'dark',
+  colors: {
+    primary: '#0A84FF',
+    secondary: '#5E5CE6',
+    background: '#000000',
+    surface: '#1C1C1E',
+    text: '#FFFFFF',
+    textSecondary: '#8E8E93',
+    border: '#38383A',
+    error: '#FF453A',
+    warning: '#FF9F0A',
+    success: '#30D158',
+  },
 };
 
-// Signaling server configuration
-export const SIGNALING_SERVER = {
-  DEFAULT_PORT: 3001,
-  DEFAULT_HOST: "localhost",
-  RECONNECT_INTERVAL: 5000,
-  MAX_RECONNECT_ATTEMPTS: 10,
-};
-
-// Audio processing constants
-export const AUDIO_PROCESSING = {
-  VAD_THRESHOLD: 0.01,
-  SILENCE_TIMEOUT: 2000,
-  BUFFER_SIZE: 4096,
-  MAX_LATENCY: 100, // milliseconds
-};
+// Storage keys
+export const STORAGE_KEYS = {
+  USER_PREFERENCES: 'user_preferences',
+  THEME: 'theme',
+  AUTH_TOKEN: 'auth_token',
+  LAST_SYNC: 'last_sync',
+} as const;
 
 // Error codes
 export const ERROR_CODES = {
-  MEDIA_ACCESS_DENIED: "MEDIA_ACCESS_DENIED",
-  PEER_CONNECTION_FAILED: "PEER_CONNECTION_FAILED",
-  SIGNALING_CONNECTION_FAILED: "SIGNALING_CONNECTION_FAILED",
-  AUDIO_DEVICE_NOT_FOUND: "AUDIO_DEVICE_NOT_FOUND",
-  VIRTUAL_DEVICE_SETUP_FAILED: "VIRTUAL_DEVICE_SETUP_FAILED",
+  NETWORK_ERROR: "NETWORK_ERROR",
+  UNAUTHORIZED: "UNAUTHORIZED",
+  FORBIDDEN: "FORBIDDEN",
+  NOT_FOUND: "NOT_FOUND",
+  VALIDATION_ERROR: "VALIDATION_ERROR",
+  SERVER_ERROR: "SERVER_ERROR",
+} as const;
+
+// Environment types
+export const ENVIRONMENTS = {
+  DEVELOPMENT: 'development',
+  STAGING: 'staging',
+  PRODUCTION: 'production',
 } as const;

@@ -1,13 +1,13 @@
 {
-  "extends": "@omnisync/tsconfig/node.json",
+  "extends": "@boilerplate/tsconfig/node.json",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
     "rootDir": "src",
     "paths": {
-      "@omnisync/shared": ["../../packages/shared/src"],
-      "@omnisync/webrtc-core": ["../../packages/webrtc-core/src"],
-      "@omnisync/ui": ["../../packages/ui/src"]
+      "@boilerplate/shared": ["../../packages/shared/src"],
+      "@boilerplate/config": ["../../packages/config/src"],
+      "@boilerplate/ui": ["../../packages/ui/src"]
     }
   },
   "include": [

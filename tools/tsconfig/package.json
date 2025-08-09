@@ -1,7 +1,7 @@
 {
-  "name": "@omnisync/tsconfig",
+  "name": "@boilerplate/tsconfig",
   "version": "1.0.0",
-  "description": "Shared TypeScript configurations for OmniSync",
+  "description": "Shared TypeScript configurations for cross-platform boilerplate",
   "private": true,
   "files": [
     "*.json"

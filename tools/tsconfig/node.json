@@ -5,12 +5,14 @@
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022"],
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": false,
     "noEmit": false,
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["node"]
+    "types": ["node"],
+    "verbatimModuleSyntax": false,
+    "exactOptionalPropertyTypes": false
   }
 }

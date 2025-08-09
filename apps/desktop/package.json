@@ -1,7 +1,7 @@
 {
-  "name": "@omnisync/desktop",
+  "name": "@boilerplate/desktop",
   "version": "1.0.0",
-  "description": "OmniSync Desktop Application - Electron-based WebRTC audio receiver",
+  "description": "Cross-platform Desktop Application - Electron-based template",
   "main": "dist/main.js",
   "author": {
     "name": "SA9E Designs",
@@ -24,15 +24,17 @@
     "make": "electron-forge make"
   },
   "dependencies": {
-    "@omnisync/shared": "workspace:*",
-    "@omnisync/webrtc-core": "workspace:*",
-    "@omnisync/ui": "workspace:*",
-    "socket.io-client": "catalog:",
-    "simple-peer": "catalog:"
+    "@boilerplate/shared": "workspace:*",
+    "@boilerplate/ui": "workspace:*",
+    "@boilerplate/config": "workspace:*",
+    "@boilerplate/store": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-router-dom": "^6.20.1"
   },
   "devDependencies": {
-    "@omnisync/eslint-config": "workspace:*",
-    "@omnisync/tsconfig": "workspace:*",
+    "@boilerplate/eslint-config": "workspace:*",
+    "@boilerplate/tsconfig": "workspace:*",
     "electron": "catalog:",
     "@electron-forge/cli": "catalog:",
     "@electron-forge/maker-deb": "^7.2.0",
@@ -46,8 +48,8 @@
     "vitest": "catalog:"
   },
   "build": {
-    "appId": "com.omnisync.desktop",
-    "productName": "OmniSync Desktop",
+    "appId": "com.boilerplate.desktop",
+    "productName": "Cross-Platform Desktop App",
     "directories": {
       "output": "build"
     },
